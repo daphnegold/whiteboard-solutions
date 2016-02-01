@@ -20,3 +20,22 @@ def collapse(arr)
 
   return collapsed.join(", ")
 end
+
+def collapse_again(arr)
+  range = []
+
+  return [] if arr.empty?
+
+  start = arr.shift
+  last = start
+  while last + 1 == arr.first
+    last = arr.first
+    arr.shift
+  end
+
+  if start != last
+    return range.push(start.to_s + "-" + last.to_s) + collapse_again(arr)
+  else
+    return range.push(start.to_s) + collapse_again(arr)
+  end
+end
