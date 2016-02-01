@@ -22,9 +22,10 @@ def collapse(arr)
 end
 
 def collapse_again(arr)
-  range = []
+  range = ""
+  no_commas_here = arr.last
 
-  return [] if arr.empty?
+  return "" if arr.empty?
 
   start = arr.shift
   last = start
@@ -33,9 +34,11 @@ def collapse_again(arr)
     arr.shift
   end
 
-  if start != last
-    return range.push(start.to_s + "-" + last.to_s) + collapse_again(arr)
+  if start == no_commas_here
+    return range += start.to_s + collapse_again(arr)
+  elsif start != last
+    return range += start.to_s + "-" + last.to_s + ", " + collapse_again(arr)
   else
-    return range.push(start.to_s) + collapse_again(arr)
+    return range += start.to_s + ", " + collapse_again(arr)
   end
 end
